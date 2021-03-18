@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookCollection;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        //
+        /*if ($request->expectsJson()) {
+            $books = Book::all();*/
+            return new BookCollection(Book::all());
+        /*}else{
+            return abort(404);
+        }*/
     }
 
     /**
@@ -38,15 +40,15 @@ class BookController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Book $book)
+
+    public function show($book)
     {
-        //
+        //if ($request->expectsJson()){
+            return new BookCollection(Book::findOrFail($book));
+        /*}else{
+            return abort(404);
+        }*/
+
     }
 
     /**
@@ -67,9 +69,10 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $book)
     {
-        //
+        $categories = Book::findOrFail($book);
+        $categories->update($request->all());
     }
 
     /**
@@ -78,8 +81,9 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy($book)
     {
-        //
+        $categories = Book::findOrFail($book);
+        $categories->delete();
     }
 }

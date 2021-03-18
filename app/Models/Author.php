@@ -13,6 +13,8 @@ class Author extends Model
         'id' => 'string',
     ];
 
+    protected $fillable = ['id','name','firstname','birthday','death_date','created_at','updated_at'];
+
     public function books()
     {
         return $this->hasMany(Book::class);

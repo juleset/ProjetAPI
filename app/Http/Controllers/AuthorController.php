@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AuthorCollection;
+use App\Http\Resources\AuthorResource;
 use App\Models\Author;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AuthorController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AuthorCollection
      */
     public function index()
     {
-        //
+        $authors = Author::with('books')->get();
+        return new AuthorCollection($authors);
     }
 
     /**
@@ -35,18 +39,15 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $uuid = Str::uuid();
+        //$request->request->add(['id' => $uuid]);
+        Author::create(array_merge($request->all(), ['id' => $uuid]));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Author  $author
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Author $author)
+
+    public function show($author)
     {
-        //
+        return new AuthorResource(Author::findOrFail($author));
     }
 
     /**
@@ -67,9 +68,10 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, $author)
     {
-        //
+        $categories = Author::findOrFail($author);
+        $categories->update($request->all());
     }
 
     /**
@@ -78,8 +80,9 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Author $author)
+    public function destroy($author)
     {
-        //
+        $categories = Author::findOrFail($author);
+        $categories->delete();
     }
 }

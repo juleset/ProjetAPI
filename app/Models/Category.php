@@ -13,6 +13,8 @@ class Category extends Model
         'id' => 'string',
     ];
 
+    protected $fillable = ['id','name','created_at','updated_at'];
+
     public function books()
     {
         return $this->hasMany(Book::class);
