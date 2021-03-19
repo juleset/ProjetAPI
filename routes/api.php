@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorBookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryBookController;
@@ -61,5 +62,6 @@ Route::resource('/books', BookController::class)->only([
 
 
 Route::resource('categories.books', CategoryBookController::class);
+Route::resource('authors.books', AuthorBookController::class);
 
 //Route::get('/authors/{id}/books', [AuthorController::class,'index']);

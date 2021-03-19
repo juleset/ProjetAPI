@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\BookCollection;
-use App\Models\Book;
-use App\Models\Category;
+use App\Models\Author;
 use Illuminate\Http\Request;
 
-class CategoryBookController extends Controller
+class AuthorBookController extends Controller
 {
 
-
-    public function index(Category $category)
+    public function index(Author $author)
     {
         //$categories = Category::with('books')->where('category_id', '=', $category);
-        $categories= $category->books()->get();
+        $authors= $author->books()->get();
         //dd($categories);
-        return new BookCollection($categories);
+        return new BookCollection($authors);
     }
 
     /**
@@ -30,10 +28,15 @@ class CategoryBookController extends Controller
         //
     }
 
-
-    public function show($category, $book)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-
+        //
     }
 
     /**
