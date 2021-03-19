@@ -20,6 +20,7 @@ class CreateBooksTable extends Migration
             $table->enum('status', ['disponible','en cours de réapprovisionnement','non édité']);
             $table->foreignUuid('author_id')->constrained();
             $table->foreignUuid('category_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
