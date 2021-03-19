@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryBookController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,7 +22,44 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/authors', AuthorController::class);//->middleware('auth:sanctum');
-Route::apiResource('/books', BookController::class);//->middleware('auth:sanctum');
-Route::apiResource('/categories', CategoryController::class);//->middleware('auth:sanctum');
-Route::get('/authors/{id}/books', [AuthorController::class,'index']);
+//Route::apiResource('/authors', AuthorController::class);//->middleware('auth:sanctum');
+//Route::apiResource('/books', BookController::class);//->middleware('auth:sanctum');
+//Route::apiResource('/categories', CategoryController::class);//->middleware('auth:sanctum');
+
+//************RESOURCE AUTHOR*************//
+Route::resource('/authors', AuthorController::class)->only([
+    'index', 'show'
+]);
+Route::resource('/authors', AuthorController::class)->only([
+    'store', 'update'
+]);
+Route::resource('/authors', AuthorController::class)->only([
+    'destroy'
+]);
+
+//************RESOURCE CATEGORY*************//
+Route::resource('/categories', CategoryController::class)->only([
+    'index', 'show'
+]);
+Route::resource('/categories', CategoryController::class)->only([
+    'store', 'update'
+]);
+Route::resource('/categories', CategoryController::class)->only([
+    'destroy'
+]);
+
+//************RESOURCE BOOK*************//
+Route::resource('/books', BookController::class)->only([
+    'index', 'show'
+]);
+Route::resource('/books', BookController::class)->only([
+    'store', 'update'
+]);
+Route::resource('/books', BookController::class)->only([
+    'destroy'
+]);
+
+
+Route::resource('categories.books', CategoryBookController::class);
+
+//Route::get('/authors/{id}/books', [AuthorController::class,'index']);
