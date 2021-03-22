@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\BookCollection;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class CategoryBookController extends Controller
 
     public function show($category, $book)
     {
-
+        return new BookResource(Book::findOrFail($book));
     }
 
     /**

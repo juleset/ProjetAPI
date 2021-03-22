@@ -15,6 +15,8 @@ class Book extends Model
         'id' => 'string',
     ];
 
+    protected $fillable = ['id','name','publish_date','author_id','category_id'];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\BookCollection;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
@@ -37,14 +39,16 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $uuid = Str::uuid();
+        //$request->request->add(['id' => $uuid]);
+        Book::create(array_merge($request->all(), ['id' => $uuid]));
     }
 
 
     public function show($book)
     {
         //if ($request->expectsJson()){
-            return new BookCollection(Book::findOrFail($book));
+            return new BookResource(Book::findOrFail($book));
         /*}else{
             return abort(404);
         }*/

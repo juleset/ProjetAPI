@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AuthorResource;
 use App\Http\Resources\BookCollection;
+use App\Http\Resources\BookResource;
 use App\Models\Author;
+use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthorBookController extends Controller
 {
@@ -28,15 +32,10 @@ class AuthorBookController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function show($book)
     {
-        //
+        return new BookResource(Book::findOrFail($book));
     }
 
     /**
