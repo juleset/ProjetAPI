@@ -33,10 +33,10 @@ Route::resource('/authors', AuthorController::class)->only([
 ]);
 Route::resource('/authors', AuthorController::class)->only([
     'store', 'update'
-])->middleware('role');
+])->middleware(['auth:sanctum','editor']);
 Route::resource('/authors', AuthorController::class)->only([
     'destroy'
-])->middleware('role');
+])->middleware(['auth:sanctum','admin']);
 
 //************RESOURCE CATEGORY*************//
 Route::resource('/categories', CategoryController::class)->only([
@@ -44,10 +44,10 @@ Route::resource('/categories', CategoryController::class)->only([
 ]);
 Route::resource('/categories', CategoryController::class)->only([
     'store', 'update'
-])->middleware('role');
+])->middleware(['auth:sanctum','editor']);
 Route::resource('/categories', CategoryController::class)->only([
     'destroy'
-])->middleware('role');
+])->middleware(['auth:sanctum','admin']);
 
 //************RESOURCE BOOK*************//
 Route::resource('/books', BookController::class)->only([
@@ -55,10 +55,10 @@ Route::resource('/books', BookController::class)->only([
 ]);
 Route::resource('/books', BookController::class)->only([
     'store', 'update'
-])->middleware('role');
+])->middleware(['auth:sanctum','editor']);
 Route::resource('/books', BookController::class)->only([
     'destroy'
-])->middleware('role');
+])->middleware(['auth:sanctum','admin']);
 
 
 Route::resource('categories.books', CategoryBookController::class);
