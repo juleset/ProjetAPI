@@ -39,6 +39,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'bail|required'
+        ]);
+
         $uuid = Str::uuid();
         //$request->request->add(['id' => $uuid]);
         Category::create(array_merge($request->all(), ['id' => $uuid]));

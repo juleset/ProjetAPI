@@ -39,13 +39,13 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        /*$this->$request->validate([
-            'name' => 'required',
-            'publish_date' => 'required',
-            'status' => 'required',
-            'author_id' => 'required',
-            'category_id' => 'required'
-        ]);*/
+        $this->validate($request, [
+            'name' => 'bail|required',
+            'publish_date' => 'bail|required',
+            'status' => 'bail|required',
+            'author_id' => 'bail|required',
+            'category_id' => 'bail|required'
+        ]);
 
         $uuid = Str::uuid();
         //$request->request->add(['id' => $uuid]);
